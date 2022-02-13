@@ -1,4 +1,3 @@
-import TemplateDefault from '../../src/templates/Defaut'
 import {
   Button,
   Card,
@@ -9,6 +8,8 @@ import {
   Grid,
   Typography,
 } from '@mui/material'
+
+import TemplateDefault from '../../src/templates/Defaut'
 
 export default function Home() {
   return (
