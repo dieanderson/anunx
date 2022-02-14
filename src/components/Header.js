@@ -18,6 +18,7 @@ import { AccountCircle } from '@mui/icons-material'
 import NewspaperIcon from '@mui/icons-material/Newspaper'
 import SellIcon from '@mui/icons-material/Sell';
 import LogoutIcon from '@mui/icons-material/Logout';
+import theme from '../theme'
 
 export default function ButtonAppBar() {
   const [anchorUserMenu, setAnchorUserMenu] = React.useState(null)
@@ -33,7 +34,17 @@ export default function ButtonAppBar() {
               Anunx
             </Typography>
             <Link href={'/user/publish'} passHref>          
-              <Button color="inherit" variant='outlined'>Anunciar e Vender</Button>
+              <Button 
+                color="inherit" 
+                variant='outlined' 
+                sx={{
+                  [theme.breakpoints.down('sm')]: {
+                    visibility: 'hidden',
+                  } 
+                }}
+              >
+                Anunciar e Vender
+              </Button>
             </Link>
 
             <IconButton color='secondary' onClick={(e) => setAnchorUserMenu(e.currentTarget)}>
