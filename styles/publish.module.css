@@ -1,0 +1,34 @@
+.boxDrop {
+    display : flex;    
+    justify-content: center;    
+    align-items: center;    
+    text-align: center; 
+    padding: 5px;  
+    margin: 0 15px 15px 0; 
+    width: 200px;   
+    height: 150px;
+    border: 2px dashed black;
+}
+
+.thumb {
+    width: 200px; 
+    height: 150px;
+    margin: 0 15px 15px 0;
+    background-size: cover;
+    background-position: center center;
+}
+
+.thumb:hover .mask {
+    display: flex;
+}
+
+.mask {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(0,0,0,0.7);
+    width: 100%;
+    height: 100%;
+}
+
