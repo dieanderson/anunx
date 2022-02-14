@@ -1,31 +1,76 @@
 import * as React from 'react'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
-import IconButton from '@mui/material/IconButton'
-import MenuIcon from '@mui/icons-material/Menu'
+import { 
+  AppBar,
+  Box,
+  Toolbar,
+  Typography,
+  Button,
+  Container,
+  IconButton,
+  Avatar,
+  Menu,
+  MenuItem,
+  Divider, 
+} from '@mui/material'
+
+import Link from 'next/link'
+import { AccountCircle } from '@mui/icons-material'
+import NewspaperIcon from '@mui/icons-material/Newspaper'
+import SellIcon from '@mui/icons-material/Sell';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function ButtonAppBar() {
+  const [anchorUserMenu, setAnchorUserMenu] = React.useState(null)
+
+  const openUserMenu = Boolean(anchorUserMenu)
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
+      <AppBar position="static" elevation={3}>
+        <Container maxWidth='lg'>
+          <Toolbar>            
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Anunx
+            </Typography>
+            <Link href={'/user/publish'} passHref>          
+              <Button color="inherit" variant='outlined'>Anunciar e Vender</Button>
+            </Link>
+
+            <IconButton color='secondary' onClick={(e) => setAnchorUserMenu(e.currentTarget)}>
+              {
+                true === false 
+                  ? <Avatar src=''/>
+                  : <AccountCircle />
+              }
+              <Typography variant='subtitle2' color='secondary'  sx={{ ml: 1 }}>
+                Diego Anderson
+              </Typography>     
+            </IconButton>
+            <Menu
+              open={openUserMenu}
+              anchorEl={anchorUserMenu}
+              onClose={() => setAnchorUserMenu(null)}
+            >
+              <Link href={'/user/dashboard'} passHref>  
+                <MenuItem>
+                  <NewspaperIcon sx={{ mr: 1 }} />
+                  Meus anúncios
+                </MenuItem>
+              </Link>
+              <Link href={'/user/publish'} passHref>  
+                <MenuItem>
+                  <SellIcon sx={{ mr: 1 }} />
+                  Publicar novo anúncio
+                </MenuItem>
+              </Link>
+              <Divider />
+              <MenuItem>
+                <LogoutIcon sx={{ mr: 1 }} />
+                Sair
+              </MenuItem>
+            </Menu>  
+          </Toolbar>
+        </Container>
       </AppBar>
     </Box>
   )

@@ -42,61 +42,110 @@ const Home = () => {
                 </Paper>
             </Container>
 
-            <Container maxWidth='md' sx={{ paddingTop: 8 }}>
+            <Container maxWidth='lg' sx={{ paddingTop: 8 }}>
                 
                 <Typography component='h2' variant='h4' align='center' color='textPrimary'>
-                    Destaques
+                    Anúncios recentes
                 </Typography>
                 <br />
                 <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6} md={4}>                        
+                    <Grid item xs={12} sm={6} md={3}>                        
                         <Card>
                             <CardMedia sx={{ paddingTop: '56%' }} 
                                 image={'https://source.unsplash.com/random'}
                                 title='titulo da imagem'  
                             />
                             <CardContent>
-                                <Typography component='h2' variant='h5'>
+                                <Typography component='h2' variant='body2'>
                                 Produto XXXXXXXX
                                 </Typography>
-                                <Typography>
+                                <Typography component='h4' variant='h6'>
                                 R$ 100,00
                                 </Typography>
                             </CardContent>                            
                         </Card>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={4}> 
+                    <Grid item xs={12} sm={6} md={3}>                        
                         <Card>
                             <CardMedia sx={{ paddingTop: '56%' }} 
                                 image={'https://source.unsplash.com/random'}
                                 title='titulo da imagem'  
                             />
                             <CardContent>
-                                <Typography component='h2' variant='h5'>
+                                <Typography component='h2' variant='body2'>
                                 Produto XXXXXXXX
                                 </Typography>
-                                <Typography>
+                                <Typography component='h4' variant='h6'>
                                 R$ 100,00
                                 </Typography>
                             </CardContent>                            
                         </Card>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={4}> 
+                    <Grid item xs={12} sm={6} md={3}>                        
                         <Card>
                             <CardMedia sx={{ paddingTop: '56%' }} 
                                 image={'https://source.unsplash.com/random'}
                                 title='titulo da imagem'  
                             />
                             <CardContent>
-                                <Typography component='h2' variant='h5'>
+                                <Typography component='h2' variant='body2'>
                                 Produto XXXXXXXX
                                 </Typography>
-                                <Typography>
+                                <Typography component='h4' variant='h6'>
                                 R$ 100,00
                                 </Typography>
                             </CardContent>                            
                         </Card>
-                    </Grid>                    
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>                        
+                        <Card>
+                            <CardMedia sx={{ paddingTop: '56%' }} 
+                                image={'https://source.unsplash.com/random'}
+                                title='titulo da imagem'  
+                            />
+                            <CardContent>
+                                <Typography component='h2' variant='body2'>
+                                Produto XXXXXXXX
+                                </Typography>
+                                <Typography component='h4' variant='h6'>
+                                R$ 100,00
+                                </Typography>
+                            </CardContent>                            
+                        </Card>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>                        
+                        <Card>
+                            <CardMedia sx={{ paddingTop: '56%' }} 
+                                image={'https://source.unsplash.com/random'}
+                                title='titulo da imagem'  
+                            />
+                            <CardContent>
+                                <Typography component='h2' variant='body2'>
+                                Produto XXXXXXXX
+                                </Typography>
+                                <Typography component='h4' variant='h6'>
+                                R$ 100,00
+                                </Typography>
+                            </CardContent>                            
+                        </Card>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>                        
+                        <Card>
+                            <CardMedia sx={{ paddingTop: '56%' }} 
+                                image={'https://source.unsplash.com/random'}
+                                title='titulo da imagem'  
+                            />
+                            <CardContent>
+                                <Typography component='h2' variant='body2'>
+                                Produto XXXXXXXX
+                                </Typography>
+                                <Typography component='h4' variant='h6'>
+                                R$ 100,00
+                                </Typography>
+                            </CardContent>                            
+                        </Card>
+                    </Grid>
+                                      
                 </Grid>
             </Container>
         </TemplateDefault>
