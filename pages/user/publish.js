@@ -3,7 +3,11 @@ import {
     Box, 
     Button, 
     Container, 
+    FormControl, 
     IconButton, 
+    InputAdornment, 
+    InputLabel, 
+    OutlinedInput, 
     Select, 
     TextField, 
     Typography,
@@ -101,7 +105,7 @@ const Publish = () => {
                         <Typography component='div' variant='body2' color='textPrimary'>
                             A primeira imagem é a foto principal do seu anúncio.
                         </Typography>
-                        <Box sx={{ display: 'flex', flexWrap: 'wrap' ,marginTop: 3 }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexWrap: 'wrap', marginTop: 3 }}>
                             
                             <Box 
                                 className={styles.boxDrop} 
@@ -171,6 +175,22 @@ const Publish = () => {
                             variant='outlined'
                             fullWidth
                         />
+                    </Box>
+                </Container>
+
+                <Container maxWidth='md'>
+                    <Box sx={{ backgroundColor: theme.palette.background.white, marginTop: 3, padding: 3 }}>
+                        <Typography component='h6' variant='h6' color='textPrimary'>
+                            Preço
+                        </Typography>
+                        <FormControl fullWidth variant='outlined' sx={{ mt:2 }}>
+                            <InputLabel>Valor</InputLabel>
+                            <OutlinedInput 
+                                onChange={() => {}}
+                                startAdornment={<InputAdornment position='start'>R$</InputAdornment>}
+                                label='Valor'
+                            />
+                        </FormControl>
                     </Box>
                 </Container>
 
