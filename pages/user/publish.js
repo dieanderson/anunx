@@ -4,9 +4,12 @@ import {
     Button, 
     Container, 
     FormControl, 
+    FormHelperText, 
     IconButton, 
+    Input, 
     InputAdornment, 
     InputLabel, 
+    MenuItem, 
     OutlinedInput, 
     Select, 
     TextField, 
@@ -25,8 +28,19 @@ import styles from '../../styles/publish.module.css'
 const validationSchema = yup.object().shape({
     title: yup.string()
         .min(6, 'Escreva um título maior')
-        .max(50, 'Título muito grande')
+        .max(100, 'Título muito grande')
         .required('Campo obrigatório'),
+    category: yup.string().required('Campo obrigatório'),
+    description: yup.string()
+        .min(50, 'Escreva uma descrição maior')
+        .max(500, 'Descrição muito grande')
+        .required('Campo obrigatório'),
+    price: yup.number().required('Campo obrigatório'),
+    email: yup.string()
+        .email('Escreva um e-mail válido')
+        .required('Campo obrigatório'),
+    name: yup.string().required('Campo obrigatório'),
+    phone: yup.number().required('Campo obrigatório'),
 })
 
 const Publish = () => {
@@ -58,6 +72,12 @@ const Publish = () => {
             <Formik
                 initialValues={{
                     title: '',
+                    category: '',
+                    description: '',
+                    price: '',
+                    email: '',
+                    name: '',
+                    phone: '',
                 }}
                 validationSchema={validationSchema}                
             >
@@ -80,51 +100,54 @@ const Publish = () => {
                                     </Typography>
 
                                     <Container maxWidth='md'>
-                                        <Box sx={{ backgroundColor: theme.palette.background.white, marginTop: 5, padding: 3 }}>
-                                            <Typography component='h6' variant='h6' color='textPrimary'>
-                                                Título do Anúncio
-                                            </Typography>
-                                            <TextField
-                                                name='title'
-                                                value={values.title}
-                                                onChange={handleChange} 
-                                                label='ex: Bicicleta aro 18 com garantia'
-                                                size='small'
-                                                fullWidth
-                                                error={errors.title}
-                                                helperText={errors.title}
-                                            />
+                                        <Box sx={{ backgroundColor: theme.palette.background.white, marginTop: 5, padding: 3 }}>                                         
+                                            
+                                            <FormControl error={errors.title} fullWidth>
+                                                <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
+                                                    Título do Anúncio
+                                                </InputLabel>                                                
+                                                <Input
+                                                    name='title'
+                                                    value={values.title}
+                                                    onChange={handleChange}
+                                                />
+                                                <FormHelperText>
+                                                    {errors.title}
+                                                </FormHelperText>
+                                            </FormControl>
 
                                             <br /><br />
-                                            <Typography component='h6' variant='h6' color='textPrimary'>
-                                                Categoria
-                                            </Typography>
-                                            <Select
-                                                native
-                                                value=''
-                                                fullWidth
-                                                onChange={() => {}}
-                                                inputProps={{
-                                                    name: 'age',
-                                                }}
-                                            >
-                                                <option value=''>Selecione</option>
-                                                <option value={1}>Bebê e Criança</option>
-                                                <option value={2}>Agricultura</option>
-                                                <option value={3}>Moda</option>
-                                                <option value={4}>Carros, Motos e Barcos</option>
-                                                <option value={5}>Serviços</option>
-                                                <option value={6}>Lazer</option>
-                                                <option value={7}>Animais</option>
-                                                <option value={8}>Moveis, Casa e Jardim</option>
-                                                <option value={9}>Imóveis</option>
-                                                <option value={10}>Equipamentos e Ferramentas</option>
-                                                <option value={11}>Celulares e Tablets</option>
-                                                <option value={12}>Esporte</option>
-                                                <option value={13}>Tecnologia</option>
-                                                <option value={14}>Emprego</option>
-                                                <option value={15}>Outros</option>
-                                            </Select>
+                                            
+                                            <FormControl error={errors.category} fullWidth>
+                                                <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
+                                                    Categoria
+                                                </InputLabel>
+                                                <Select
+                                                    name='category'
+                                                    value={values.category}                                                    
+                                                    onChange={handleChange}
+                                                    fullWidth
+                                                >                                                
+                                                    <MenuItem value='Bebê e Criança'>Bebê e Criança</MenuItem>
+                                                    <MenuItem value='Agricultura'>Agricultura</MenuItem>
+                                                    <MenuItem value='Moda'>Moda</MenuItem>
+                                                    <MenuItem value='Carros, Motos e Barcos'>Carros, Motos e Barcos</MenuItem>
+                                                    <MenuItem value='Serviços'>Serviços</MenuItem>
+                                                    <MenuItem value='Lazer'>Lazer</MenuItem>
+                                                    <MenuItem value='Animais'>Animais</MenuItem>
+                                                    <MenuItem value='Moveis, Casa e Jardim'>Moveis, Casa e Jardim</MenuItem>
+                                                    <MenuItem value='Imóveis'>Imóveis</MenuItem>
+                                                    <MenuItem value='Equipamentos e Ferramentas'>Equipamentos e Ferramentas</MenuItem>
+                                                    <MenuItem value='Celulares e Tablets'>Celulares e Tablets</MenuItem>
+                                                    <MenuItem value='Esporte'>Esporte</MenuItem>
+                                                    <MenuItem value='Tecnologia'>Tecnologia</MenuItem>
+                                                    <MenuItem value='Emprego'>Emprego</MenuItem>
+                                                    <MenuItem value='Outros'>Outros</MenuItem>
+                                                </Select>
+                                                <FormHelperText>
+                                                    {errors.category}
+                                                </FormHelperText>
+                                            </FormControl>
                                         </Box>
                                     </Container>
 
@@ -194,34 +217,45 @@ const Publish = () => {
 
                                     <Container maxWidth='md'>
                                         <Box sx={{ backgroundColor: theme.palette.background.white, marginTop: 3, padding: 3 }}>
-                                            <Typography component='h6' variant='h6' color='textPrimary'>
-                                                Descrição
-                                            </Typography>
-                                            <Typography component='div' variant='body2' color='textPrimary'>
-                                                Escreva os detalhes do que está vendendo
-                                            </Typography>
-                                            <TextField
-                                                multiline
-                                                rows={6}
-                                                variant='outlined'
-                                                fullWidth
-                                            />
+                                            
+                                            <FormControl error={errors.description} fullWidth>
+                                                <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
+                                                    Escreva a descrição em detalhes do que está vendendo
+                                                </InputLabel>
+                                                <Input
+                                                    name='description'
+                                                    value={values.description}
+                                                    multiline
+                                                    rows={6}
+                                                    onChange={handleChange}
+                                                    variant='outlined'                                               
+                                                />
+                                                <FormHelperText>
+                                                    {errors.description}
+                                                </FormHelperText>
+                                            </FormControl>
                                         </Box>
                                     </Container>
 
                                     <Container maxWidth='md'>
                                         <Box sx={{ backgroundColor: theme.palette.background.white, marginTop: 3, padding: 3 }}>
-                                            <Typography component='h6' variant='h6' color='textPrimary'>
-                                                Preço
-                                            </Typography>
-                                            <FormControl fullWidth variant='outlined' sx={{ mt:2 }}>
-                                                <InputLabel>Valor</InputLabel>
-                                                <OutlinedInput 
-                                                    onChange={() => {}}
+                                            
+                                            <FormControl error={errors.price} fullWidth>
+                                                <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main, fontSize: 22}}>
+                                                    Preço de Venda
+                                                </InputLabel>
+                                                <Input
+                                                    name='price'
+                                                    value={values.price} 
+                                                    onChange={handleChange}
                                                     startAdornment={<InputAdornment position='start'>R$</InputAdornment>}
-                                                    label='Valor'
+                                                    variant='outlined'                                                    
                                                 />
+                                                 <FormHelperText>
+                                                    {errors.price}
+                                                </FormHelperText>
                                             </FormControl>
+
                                         </Box>
                                     </Container>
 
@@ -230,26 +264,47 @@ const Publish = () => {
                                             <Typography component='h6' variant='h6' color='textPrimary' gutterBottom>
                                                 Dados de Contato
                                             </Typography>
-                                            <TextField
-                                                label='Nome'
-                                                size='small'
-                                                variant='outlined'
-                                                fullWidth
-                                            />
+                                            <FormControl error={errors.name} fullWidth>
+                                                <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
+                                                    Nome
+                                                </InputLabel>                                                
+                                                <Input
+                                                    name='name'
+                                                    value={values.name}
+                                                    onChange={handleChange}
+                                                />
+                                                <FormHelperText>
+                                                    {errors.name}
+                                                </FormHelperText>
+                                            </FormControl>
                                             <br /> <br />
-                                            <TextField
-                                                label='E-mail'
-                                                size='small'
-                                                variant='outlined'
-                                                fullWidth
-                                            />
+                                            <FormControl error={errors.email} fullWidth>
+                                                <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
+                                                    E-mail
+                                                </InputLabel>                                                
+                                                <Input
+                                                    name='email'
+                                                    value={values.email}
+                                                    onChange={handleChange}
+                                                />
+                                                <FormHelperText>
+                                                    {errors.email}
+                                                </FormHelperText>
+                                            </FormControl>
                                             <br /> <br />
-                                            <TextField
-                                                label='Telefone'
-                                                size='small'
-                                                variant='outlined'
-                                                fullWidth
-                                            />
+                                            <FormControl error={errors.phone} fullWidth>
+                                                <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
+                                                    Telefone
+                                                </InputLabel>                                                
+                                                <Input
+                                                    name='phone'
+                                                    value={values.phone}
+                                                    onChange={handleChange}
+                                                />
+                                                <FormHelperText>
+                                                    {errors.phone}
+                                                </FormHelperText>
+                                            </FormControl>
                                         </Box>
                                     </Container>
 
