@@ -3,6 +3,19 @@ import Link from "next/link"
 
 import theme from "../theme"
 
+function Copyright(props) {
+    return (
+      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        {'Copyright © '}
+        <Link color="inherit" href="https://www.anunx.com.br/">
+          Anunx
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    )
+  }
+
 const Footer = () => {
     return(
         <Container 
@@ -10,7 +23,6 @@ const Footer = () => {
             component='footer'
             sx={{
                 borderTop: `1px solid ${theme.palette.divider}`,
-                marginTop: theme.spacing(8),
                 paddingTop: theme.spacing(3),
                 paddingBottom: theme.spacing(3),
                 [theme.breakpoints.up('sm')]:{
@@ -49,6 +61,9 @@ const Footer = () => {
                     </Box>
                 </Grid>
             </Grid>
+
+            <Copyright sx={{ mt: 8, mb: 4 }} />
+            
         </Container>
     )
 }

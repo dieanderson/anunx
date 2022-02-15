@@ -17,19 +17,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Theme from '../src/theme'
 import TemplateDefault from '../src/templates/Defaut'
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://www.anunx.com.br/">
-        Anunx
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
-}
-
 const theme = Theme
 
 export default function SignIn() {
@@ -50,7 +37,6 @@ export default function SignIn() {
           <CssBaseline />
           <Box
             sx={{
-              marginTop: 8,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -111,8 +97,7 @@ export default function SignIn() {
                 </Grid>
               </Grid>
             </Box>
-          </Box>
-          <Copyright sx={{ mt: 8, mb: 4 }} />
+          </Box>          
         </Container>
       </ThemeProvider>
     </TemplateDefault>
