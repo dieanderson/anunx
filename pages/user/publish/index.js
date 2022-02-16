@@ -58,7 +58,7 @@ const Publish = () => {
                                             
                                             <FormControl error={errors.title && touched.title} fullWidth>
                                                 <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
-                                                    Título do Anúncio
+                                                    Título do Anúncio *
                                                 </InputLabel>                                                
                                                 <Input
                                                     name='title'
@@ -75,13 +75,13 @@ const Publish = () => {
                                             <FormControl error={errors.category && touched.category} fullWidth>
                                                 
                                                 <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
-                                                    Categoria
+                                                    Categoria *
                                                 </InputLabel>
                                                 <Select
                                                     name='category'
                                                     value={values.category}                                                    
                                                     onChange={handleChange}
-                                                    label='Categoria'
+                                                    label='Categoria *'
                                                 >                                                
                                                     <MenuItem value='Bebê e Criança'>Bebê e Criança</MenuItem>
                                                     <MenuItem value='Agricultura'>Agricultura</MenuItem>
@@ -126,7 +126,7 @@ const Publish = () => {
                                             
                                             <FormControl error={errors.description && touched.description} fullWidth>
                                                 <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
-                                                    Escreva a descrição em detalhes do que está vendendo
+                                                    Escreva a descrição em detalhes do que está vendendo *
                                                 </InputLabel>
                                                 <Input
                                                     name='description'
@@ -148,7 +148,7 @@ const Publish = () => {
                                             
                                             <FormControl error={errors.price && touched.price} fullWidth>
                                                 <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main, fontSize: 22}}>
-                                                    Preço de Venda
+                                                    Preço de Venda *
                                                 </InputLabel>
                                                 <Input
                                                     name='price'
@@ -172,7 +172,7 @@ const Publish = () => {
                                             </Typography>
                                             <FormControl error={errors.name && touched.name} fullWidth>
                                                 <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
-                                                    Nome
+                                                    Nome *
                                                 </InputLabel>                                                
                                                 <Input
                                                     name='name'
@@ -186,7 +186,7 @@ const Publish = () => {
                                             <br /> <br />
                                             <FormControl error={errors.email && touched.email} fullWidth>
                                                 <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
-                                                    E-mail
+                                                    E-mail *
                                                 </InputLabel>                                                
                                                 <Input
                                                     name='email'
@@ -200,7 +200,7 @@ const Publish = () => {
                                             <br /> <br />
                                             <FormControl error={errors.phone && touched.phone} fullWidth>
                                                 <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
-                                                    Telefone
+                                                    Telefone *
                                                 </InputLabel>                                                
                                                 <Input
                                                     name='phone'

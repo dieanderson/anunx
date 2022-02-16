@@ -14,8 +14,8 @@ import {
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 
-import Theme from '../src/theme'
-import TemplateDefault from '../src/templates/Defaut'
+import Theme from '../../src/theme'
+import TemplateDefault from '../../src/templates/Defaut'
 
 const theme = Theme
 
@@ -91,7 +91,7 @@ export default function SignIn() {
               <Grid container>
                 
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href={'/auth/signup'} passHref variant="body2">
                     {"Ainda não tem uma conta? Crie uma aqui"}
                   </Link>
                 </Grid>
