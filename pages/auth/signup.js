@@ -7,20 +7,42 @@ import {
     Input, 
     InputLabel, 
     Link, 
-    Typography 
+    Typography,
+    CircularProgress, 
 } from '@mui/material'
 
 import { Formik } from 'formik'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
 import TemplateDefault from '../../src/templates/Defaut'
 import theme from '../../src/theme'
 import { initialValues, validationSchema } from './formValues'
+import useToasty from '../../src/contexts/Toasty'
 
 
-const Singup = () => {
+const Signup = () => {
+
+    const { setToasty } = useToasty()
+    const router = useRouter()
+
+    const handleFormSubmit = async (values) => {
+        const response = await axios.post('/api/users', values)
+
+        if(response.data.success) {
+            setToasty({
+                open: 'true',
+                severity: 'success',
+                text: 'Cadastro realizado com sucesso!'
+            })
+
+            router.push('/auth/signin')
+        }
+    }
+
     return (
 
-        <TemplateDefault>
+        <TemplateDefault>            
             
             <Container maxWidth='sm' component='main'>
 
@@ -29,7 +51,7 @@ const Singup = () => {
                 </Typography>
                 <Typography component='h5' variant='h5' align='center' color='textPrimary'>
                     E anuncie para todo Brasil!
-                </Typography>            
+                </Typography>                          
 
             </Container>
 
@@ -38,9 +60,7 @@ const Singup = () => {
                     <Formik
                         initialValues={initialValues}
                         validationSchema={validationSchema}
-                        onSubmit={(values) => {
-                            console.log('form enviado!', values)
-                        }}
+                        onSubmit={handleFormSubmit}
                     >
                         {
                             ({
@@ -49,6 +69,7 @@ const Singup = () => {
                                 errors,
                                 handleChange,
                                 handleSubmit,
+                                isSubmitting,
                             }) => {
                                 return(
                                     <form onSubmit={handleSubmit}>
@@ -111,16 +132,24 @@ const Singup = () => {
                                             </FormHelperText>
                                         </FormControl>
                                         
-                                        <Button
-                                            type='submit'
-                                            fullWidth
-                                            variant='contained'
-                                            color='primary'
-                                            sx={{m: theme.spacing(3, 0, 2)}}                                            
-                                        >
-                                            Cadastrar
-                                        </Button>
-                                        <Link href={'/auth/signin'} passHref variant="body2">
+                                        {
+                                            isSubmitting
+                                            ? (
+                                                <CircularProgress sx={{ display: 'block', margin: '10px auto' }} />
+                                            ) : (
+                                                <Button
+                                                    type='submit'
+                                                    fullWidth
+                                                    variant='contained'
+                                                    color='primary'
+                                                    sx={{m: theme.spacing(3, 0, 2)}}                                            
+                                                >
+                                                    Cadastrar
+                                                </Button>
+                                            )
+                                        }
+                                        
+                                        <Link href={'/auth/signin'} variant="body2">
                                             {"Já tem uma conta? Acesse aqui"}
                                         </Link>
                                     </form>                                    
@@ -136,4 +165,4 @@ const Singup = () => {
     )
 }
 
-export default Singup
+export default Signup

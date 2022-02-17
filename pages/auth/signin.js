@@ -1,105 +1,123 @@
-import * as React from 'react'
-import {
-  Avatar,
-  Button,
-  CssBaseline,
-  TextField,
-  Link,
-  Grid,
+import { Formik } from 'formik'
+
+import { 
   Box,
-  Typography,
-  Container,
-  ThemeProvider,
+  Button,
+  Container, 
+  FormControl, 
+  FormHelperText, 
+  Input, 
+  InputAdornment, 
+  InputLabel, 
+  Link, 
+  Typography 
 } from '@mui/material'
 
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
+import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined'
 
-import Theme from '../../src/theme'
 import TemplateDefault from '../../src/templates/Defaut'
+import theme from '../../src/theme'
+import { initialValues, validationSchema } from './formValues'
 
-const theme = Theme
 
-export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget)
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    })
-  }
-
+const Signin = () => {
   return (
-    <TemplateDefault>
-      <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: 'primary.main', width: 60, height: 60 }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h4">
-              Entre em sua conta
-            </Typography>
-            <Box 
-              component="form" 
-              onSubmit={handleSubmit} 
-              noValidate 
-              sx={{ 
-                mt: 1, 
-                backgroundColor: 'secondary.main',
-                p:5,
-                width: '500px',
-                borderRadius: '10px',
-              }}
-            >
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="E-mail"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Senha"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Entrar
-              </Button>
-              <Grid container>
-                
-                <Grid item>
-                  <Link href={'/auth/signup'} passHref variant="body2">
-                    {"Ainda não tem uma conta? Crie uma aqui"}
-                  </Link>
-                </Grid>
-              </Grid>
-            </Box>
-          </Box>          
-        </Container>
-      </ThemeProvider>
-    </TemplateDefault>
+
+      <TemplateDefault>
+          
+          <Container maxWidth='sm' component='main'>
+
+              <Typography component='h1' variant='h2' align='center' color='textPrimary'>
+                  Acesse a sua conta
+              </Typography>                          
+
+          </Container>
+
+          <Container maxWidth='sm'>
+              <Box sx={{ backgroundColor: theme.palette.background.white, marginTop: 5, padding: 3, borderRadius: 2 }}>
+                  <Formik
+                      initialValues={initialValues}
+                      validationSchema={validationSchema}
+                      onSubmit={(values) => {
+                          console.log('form enviado!', values)
+                      }}
+                  >
+                      {
+                          ({
+                              touched,
+                              values,
+                              errors,
+                              handleChange,
+                              handleSubmit,
+                          }) => {
+                              return(
+                                  <form onSubmit={handleSubmit}>
+                                                                            
+                                      <FormControl error={errors.email && touched.email} fullWidth sx={{mb: theme.spacing(1)}}>
+                                          <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
+                                              E-mail *
+                                          </InputLabel>
+                                          <Input
+                                              name='email'
+                                              value={values.email}
+                                              onChange={handleChange}
+                                              type='email'
+                                              startAdornment={
+                                                <InputAdornment position='start'>
+                                                  <MailOutlinedIcon />
+                                                </InputAdornment>
+                                              }
+                                          />
+                                          <FormHelperText>
+                                              {errors.email && touched.email ? errors.email : null}
+                                          </FormHelperText>
+                                      </FormControl>
+                                      
+                                      <FormControl error={errors.password && touched.password} fullWidth sx={{mb: theme.spacing(1)}}>
+                                          <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
+                                              Senha *
+                                          </InputLabel>
+                                          <Input
+                                              name='password'
+                                              value={values.password}
+                                              onChange={handleChange}
+                                              type='password'
+                                              startAdornment={
+                                                <InputAdornment position='start'>
+                                                  <VpnKeyOutlinedIcon />
+                                                </InputAdornment>
+                                              }
+                                          />
+                                          <FormHelperText>
+                                              {errors.password && touched.password ? errors.password : null}
+                                          </FormHelperText>
+                                      </FormControl> 
+
+                                      <Button
+                                          type='submit'
+                                          fullWidth
+                                          variant='contained'
+                                          color='primary'
+                                          sx={{m: theme.spacing(3, 0, 2)}}                                            
+                                      >
+                                          Entrar
+                                      </Button>
+
+                                      <Link href={'/auth/signup'} variant="body2">
+                                        {"Ainda não tem uma conta? Crie uma aqui"}
+                                      </Link>
+                                  </form>                                    
+                              )
+                          }
+                      }
+                  </Formik>
+              </Box>
+          </Container>
+
+      </TemplateDefault>
+
   )
 }
+
+export default Signin

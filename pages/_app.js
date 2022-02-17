@@ -7,6 +7,7 @@ import { CacheProvider } from '@emotion/react'
 
 import theme from '../src/theme'
 import createEmotionCache from '../src/createEmotionCache'
+import { ToastyProvider } from '../src/contexts/Toasty'
 
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -18,13 +19,14 @@ export default function MyApp(props) {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
         <title>Anunx</title>
+        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <Component {...pageProps} />
+        <ToastyProvider>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ToastyProvider>  
       </ThemeProvider>
     </CacheProvider>
   )
