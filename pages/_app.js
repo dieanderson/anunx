@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider } from '@emotion/react'
+import { SessionProvider } from 'next-auth/react'
 
 import theme from '../src/theme'
 import createEmotionCache from '../src/createEmotionCache'
@@ -14,7 +15,7 @@ import { ToastyProvider } from '../src/contexts/Toasty'
 const clientSideEmotionCache = createEmotionCache()
 
 export default function MyApp(props) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
+  const { Component, emotionCache = clientSideEmotionCache, pageProps:{ session, ...pageProps} } = props
 
   return (
     <CacheProvider value={emotionCache}>
@@ -22,12 +23,14 @@ export default function MyApp(props) {
         <title>Anunx</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
-      <ThemeProvider theme={theme}>
-        <ToastyProvider>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ToastyProvider>  
-      </ThemeProvider>
+      <SessionProvider session={session}>
+        <ThemeProvider theme={theme}>
+          <ToastyProvider>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ToastyProvider>  
+        </ThemeProvider>
+      </SessionProvider>
     </CacheProvider>
   )
 }
