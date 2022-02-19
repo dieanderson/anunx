@@ -17,8 +17,9 @@ const post = async (req, res) => {
         })
     }
 
+    
     const passIsCorrect = compare(password, user.password)
-
+    
     if(passIsCorrect) {
         return res.status(200).json({
             _id: user._id,

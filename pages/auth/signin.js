@@ -1,4 +1,5 @@
-import { signIn, useSession } from "next-auth/react"
+import { signIn } from "next-auth/react"
+import Image from "next/image"
 import { 
     Box,
     Button,
@@ -20,13 +21,16 @@ import theme from '../../src/theme'
 import { initialValues, validationSchema } from './formValuesSignin'
 
 
-
 const Signin = () => {
     
-    const router = useRouter()
-    const session = useSession()
+    const router = useRouter()    
 
-    console.log(session)
+    const handleGoogleLogin = () => {
+        signIn('google', {
+            callbackUrl: 'http://localhost:3000/user/dashboard'
+        })
+    }    
+    
     const handleFormSubmit = async (values) => {        
         
         signIn('credentials', {            
@@ -52,6 +56,39 @@ const Signin = () => {
 
             <Container maxWidth='sm'>
                 <Box sx={{ backgroundColor: theme.palette.background.white, marginTop: 5, padding: 3, borderRadius: 2 }}>
+                    <Box display='flex' justifyContent='center'>
+                        <Button 
+                            variant="contained"
+                            color="primary"
+                            startIcon={
+                                <Image 
+                                    src='/images/logo_google.svg' 
+                                    width={20} 
+                                    height={20}
+                                    alt='Login com Google' 
+                                />
+                            }
+                            onClick={ handleGoogleLogin } 
+                        >
+                            Entrar com Google
+                        </Button>
+                    </Box>
+                    <Box sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: '#e8e8e8',
+                            width: '100%',
+                            height: '1px',
+                            margin: theme.spacing(7,0,4),
+                            '& span': {
+                                backgroundColor: 'white',
+                                padding: '0 30px'
+                            }
+                        }}
+                    >
+                        <span>ou</span>
+                    </Box>
                     <Formik
                         initialValues={initialValues}
                         validationSchema={validationSchema}

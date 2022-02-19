@@ -11,7 +11,7 @@ const crypto = async (pwd) => {
 
 const compare = (pwd, hash) => {
 
-    const result = bcrypt.compare(pwd, hash)
+    const result = bcrypt.compareSync(pwd, hash)
     
     return result
 }

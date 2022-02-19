@@ -13,9 +13,13 @@ import { ToastyProvider } from '../src/contexts/Toasty'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
+export default function MyApp({   
+    Component, 
+    emotionCache = clientSideEmotionCache, 
+    pageProps:{ session, ...pageProps},
+})
 
-export default function MyApp(props) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps:{ session, ...pageProps} } = props
+{
 
   return (
     <CacheProvider value={emotionCache}>
