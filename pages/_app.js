@@ -10,6 +10,7 @@ import theme from '../src/theme'
 import createEmotionCache from '../src/createEmotionCache'
 import { ToastyProvider } from '../src/contexts/Toasty'
 import '../styles/globals.css'
+import CheckAuth from '../src/components/CheckAuth'
 
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -32,7 +33,11 @@ export default function MyApp({
         <ThemeProvider theme={theme}>
           <ToastyProvider>
             <CssBaseline />
-            <Component {...pageProps} />
+            {
+              Component.requireAuth
+              ? <CheckAuth Component={Component} pageProps={pageProps}/>
+              : <Component {...pageProps} />
+            }            
           </ToastyProvider>  
         </ThemeProvider>
       </SessionProvider>
