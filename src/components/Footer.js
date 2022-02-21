@@ -6,11 +6,9 @@ import theme from "../theme"
 function Copyright(props) {
     return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-        <Link color="inherit" href="https://www.anunx.com.br/">
-          Anunx
-        </Link>{' '}
-        {new Date().getFullYear()}
+        {'Copyright © '}        
+          Anunx         
+        {' '}{new Date().getFullYear()}
         {'.'}
       </Typography>
     )
@@ -28,35 +26,35 @@ const Footer = () => {
                 [theme.breakpoints.up('sm')]:{
                     paddingTop: theme.spacing(6),
                     paddingBottom: theme.spacing(6),    
-                },
+                }
             }}
         >
             <Grid container spacing={3}>
                 <Grid item xs={6} sm={3}>
                     <Box textAlign='center'>
                         <Link href='#' passHref>
-                            <Typography color='textSecondary' variant='subtitle1' >Ajuda e Contato</Typography>
-                        </Link> 
+                            <a><Typography color='textSecondary' variant='subtitle1' >Dicas de Segurança</Typography></a>
+                        </Link>                       
                     </Box>
                 </Grid>
                 <Grid item xs={6} sm={3}>
                     <Box textAlign='center'>
                         <Link href='#' passHref>
-                            <Typography color='textSecondary' variant='subtitle1' >Dicas de Segurança</Typography>
+                            <a><Typography color='textSecondary' variant='subtitle1' >Dicas de Segurança</Typography></a>
                         </Link>
                     </Box>
                 </Grid>
                 <Grid item xs={6} sm={3}>
                     <Box textAlign='center'>
                         <Link href='#' passHref>
-                            <Typography color='textSecondary' variant='subtitle1' >Anunciar e Vender</Typography>
+                            <a><Typography color='textSecondary' variant='subtitle1' >Anunciar e Vender</Typography></a>
                         </Link>
                     </Box>
                 </Grid>
                 <Grid item xs={6} sm={3}>
                     <Box textAlign='center'>
                         <Link href='#' passHref>
-                            <Typography color='textSecondary' variant='subtitle1' >Plano Profissional</Typography>
+                            <a><Typography color='textSecondary' variant='subtitle1' >Plano Profissional</Typography></a>
                         </Link>
                     </Box>
                 </Grid>

@@ -5,14 +5,10 @@ import {
   Typography,
 } from '@mui/material'
 
-import { useSession } from "next-auth/react"
 import TemplateDefault from '../../src/templates/Defaut'
 import Card from '../../src/components/Card'
 
 export default function Home() {
-  const {session} = useSession()
-
-  console.log(session)
   return (
     <TemplateDefault>
       

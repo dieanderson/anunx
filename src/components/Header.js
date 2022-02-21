@@ -11,7 +11,8 @@ import {
   Avatar,
   Menu,
   MenuItem,
-  Divider, 
+  Divider,
+  Grid, 
 } from '@mui/material'
 
 import Link from 'next/link'
@@ -34,25 +35,31 @@ export default function ButtonAppBar() {
         <Container maxWidth='lg'>
           <Toolbar> 
             <Link href={'/'} passHref>           
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Anunx
-              </Typography>
+              <a><Typography variant="h6" component="div" sx={{ flexGrow: 1, paddingRight: '30px'}}>
+              Anunx
+              </Typography></a>
             </Link>
+
+            <Grid container alignItems='flex-end' direction='row' justifyContent="flex-end">
+            <Grid item>
             <Link href={ session ? '/user/publish' : '/auth/signin'} passHref>          
               <Button 
                 color="inherit" 
                 variant='outlined' 
                 sx={{
+                  padding: '5px',
+                  marginBottom: '7px',
                   marginRight: '10px',
-                  [theme.breakpoints.down('sm')]: {
-                    visibility: 'hidden',                    
-                  } 
+                  /*[theme.breakpoints.down('sm')]: {
+                                       
+                  } */
                 }}
               >
                 Anunciar e Vender
               </Button>
             </Link>
-
+            </Grid>
+            <Grid item >
             {
               session
                 ? (
@@ -62,12 +69,15 @@ export default function ButtonAppBar() {
                         ? <Avatar src={session.user.image} />
                         : <AccountCircle />
                     }
-                    <Typography variant='subtitle2' color='secondary' sx={{ marginLeft: '10px' }}>
+                    <Typography variant='subtitle2' color='secondary' sx={{ marginLeft: '5px' }}>
                       {session.user.name}
                     </Typography>     
                   </IconButton>
                 ) : null
             }
+            </Grid>
+
+            </Grid>
 
             <Menu
               open={openUserMenu}
@@ -91,7 +101,8 @@ export default function ButtonAppBar() {
                 <LogoutIcon sx={{ mr: 1 }} />
                 Sair
               </MenuItem>
-            </Menu>  
+            </Menu> 
+
           </Toolbar>
         </Container>
       </AppBar>

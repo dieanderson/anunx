@@ -21,7 +21,7 @@ export default NextAuth({
        
       async authorize(credentials)  {
           
-          const res = await axios.post('http://localhost:3000/api/auth/signin', credentials)          
+          const res = await axios.post(`${process.env.APP_URL}/api/auth/signin`, credentials)          
 
           const user = res.data
           
@@ -40,5 +40,4 @@ export default NextAuth({
     strategy: 'jwt',
   },
 
-  debug: true,
 })
