@@ -10,6 +10,7 @@ import {
     MenuItem,    
     Select,   
     Typography,
+    CircularProgress,
  } from '@mui/material'
 
 import { Formik } from 'formik'
@@ -22,11 +23,20 @@ import axios from 'axios'
 import useToasty from '../../../src/contexts/Toasty'
 import { useRouter } from 'next/router'
 
+import { getSession } from 'next-auth/react'
 
-const Publish = () => {
+
+const Publish = ({ userId, image }) => {
 
     const { setToasty } = useToasty()
     const router = useRouter()
+
+    const formValues = {
+        ...initialValues,               
+    } 
+    
+    formValues.userId = userId
+    formValues.image = image
 
     const handleSuccess = () => {
         setToasty({
@@ -35,7 +45,7 @@ const Publish = () => {
             severity: 'success',
         })
 
-        //router.push('user/dashboard')
+        router.push('dashboard')
     }
 
     const handleError = () => {
@@ -68,7 +78,7 @@ const Publish = () => {
         <TemplateDefault>
 
             <Formik
-                initialValues={initialValues}
+                initialValues={formValues}
                 validationSchema={validationSchema}
                 onSubmit={ handleFormSubmit }                
             >
@@ -80,10 +90,14 @@ const Publish = () => {
                         handleChange,
                         handleSubmit,
                         setFieldValue,
+                        isSubmitting,
                     }) => {                        
 
                         return(
                             <form onSubmit={handleSubmit}>
+                                <Input type='hidden' name='userId' value={values.userId}/>
+                                <Input type='hidden' name='image' value={values.image}/>
+
                                 <Container maxWidth='md'>
 
                                     <Typography component='h1' variant='h2' align='center' color='textPrimary'>
@@ -256,9 +270,17 @@ const Publish = () => {
 
                                     <Container maxWidth='md'  sx={{ paddingTop: 3}}>
                                         <Box textAlign='right'>
-                                            <Button type='submit' variant='contained' color='primary'>
-                                                Publicar Anúncio
-                                            </Button>
+                                        {
+                                            isSubmitting
+                                            ? (
+                                                <CircularProgress sx={{ display: 'block', margin: '10px auto' }} />
+                                            )
+                                            : (  
+                                                <Button type='submit' variant='contained' color='primary'>
+                                                    Publicar Anúncio
+                                                </Button>
+                                            )
+                                        }
                                         </Box>
                                     </Container>
 
@@ -275,5 +297,16 @@ const Publish = () => {
 }
 
 Publish.requireAuth = true
+
+export async function getServerSideProps({ req }) {
+    const { accessToken, user } = await getSession({ req })
+    
+    return {
+        props:{
+            userId: accessToken,
+            image: user.image,
+        }
+    }
+}
 
 export default Publish

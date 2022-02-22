@@ -8,17 +8,18 @@ const CheckAuth = ({ Component, pageProps }) => {
     const { data: session, status } = useSession()
 
     useEffect(() => {
-        if(!session){
+        if(status === 'loading') return
+
+        if(status === 'unauthenticated'){
             router.push('/auth/signin')
         }
     }, [session, status])
 
-    if(session){
+    if(status === 'authenticated'){
         return <Component {...pageProps} />
     }
     
-    return 'Carregando...'
-    
+    return 'Carregando...'    
     
 }
 
