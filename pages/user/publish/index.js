@@ -33,8 +33,7 @@ const Publish = ({ userId, image }) => {
 
     const formValues = {
         ...initialValues,               
-    } 
-    
+    }     
     formValues.userId = userId
     formValues.image = image
 
@@ -44,7 +43,6 @@ const Publish = ({ userId, image }) => {
             text: 'Anúncio cadastrado com sucesso!',
             severity: 'success',
         })
-
         router.push('dashboard')
     }
 
@@ -69,7 +67,7 @@ const Publish = ({ userId, image }) => {
             }
         }
 
-        axios.post('/api/product', formData)
+        axios.post('/api/products/add', formData)
             .then(handleSuccess)
             .catch(handleError)
     }

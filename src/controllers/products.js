@@ -2,7 +2,7 @@ import ProductsModel from '../models/products'
 import dbConnect from '../utils/dbconnect'
 import formidable from 'formidable-serverless'
 const path = require('path')
-import fs from 'fs'
+const fs = require('fs')
 
 const post = async (req, res) => {
 
@@ -29,14 +29,14 @@ const post = async (req, res) => {
         
         filesToRename.forEach(file => {
             const timeStamp = Date.now()
-            const random = Math.floor(Math.random() * 999999) + 1            
+            const random = Math.floor(Math.random() * 99999999) + 1            
             
             const extension = path.extname(file.name) //.jpg ou .png
             const fileName = `${timeStamp}_${random}${extension}`
 
-            const oldPath = path.join(__dirname, `../../../../${file.path}`)
-            const newPath = path.join(__dirname, `../../../../${form.uploadDir}/${fileName}`)
-
+            const oldPath = path.join(__dirname, `../../../../../${file.path}`)
+            const newPath = path.join(__dirname, `../../../../../${form.uploadDir}/${fileName}`)
+            
             filesToSave.push({
                 name: fileName,
                 path: newPath,
@@ -88,6 +88,22 @@ const post = async (req, res) => {
 
 }
 
+const remove = async (req, res) => {
+
+    await dbConnect()
+    
+    const id = req.body.id
+    
+    const deleted = await ProductsModel.findOneAndRemove({ _id: id })
+
+    if (deleted) {
+        return res.status(200).json({ success: true })
+    } else {
+        return res.status(500).json({ success: false })    
+    }
+}
+
 export {
     post,
+    remove,
 }

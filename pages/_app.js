@@ -30,7 +30,7 @@ export default function MyApp({
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
       <SessionProvider session={session}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>          
           <ToastyProvider>
             <CssBaseline />
             {
@@ -38,7 +38,7 @@ export default function MyApp({
               ? <CheckAuth Component={Component} pageProps={pageProps}/>
               : <Component {...pageProps} />
             }            
-          </ToastyProvider>  
+          </ToastyProvider>          
         </ThemeProvider>
       </SessionProvider>
     </CacheProvider>
