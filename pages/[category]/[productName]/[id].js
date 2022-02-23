@@ -11,10 +11,13 @@ import {
 } from '@mui/material'
 import Carousel from 'react-material-ui-carousel'
 
-import TemplateDefault from '../../src/templates/Defaut'
-import theme from '../../src/theme'
+import TemplateDefault from '../../../src/templates/Defaut'
+import theme from '../../../src/theme'
+import dbConnect from '../../../src/utils/dbConnect'
+import ProductsModel from '../../../src/models/products'
+import { formatCurrency } from '../../../src/utils/currency'
 
-const Product = () => {
+const Product = ({ product }) => {
     return(
         <TemplateDefault>
             <Container maxWidth='lg'>
@@ -36,18 +39,16 @@ const Product = () => {
                                     }
                                 }} 
                             >
-                                <Card sx={{ height: '100%' }}>
-                                    <CardMedia sx={{ paddingTop: '56%' }} 
-                                        image={'https://source.unsplash.com/random?a=1'}
-                                        title='Título da imagem'    
-                                    />
-                                </Card>
-                                <Card sx={{ height: '100%' }}>
-                                    <CardMedia sx={{ paddingTop: '56%' }} 
-                                        image={'https://source.unsplash.com/random?p=2'}
-                                        title='Título da imagem'    
-                                    />
-                                </Card>
+                                {
+                                    product.files.map(file => (
+                                        <Card key={file.name} sx={{ height: '100%' }}>
+                                            <CardMedia sx={{ paddingTop: '56%' }} 
+                                                image={`/uploads/${file.name}`}
+                                                title={product.title}    
+                                            />
+                                        </Card>    
+                                    ))
+                                }                                
                             </Carousel>
                         </Box>
 
@@ -68,16 +69,16 @@ const Product = () => {
                                 variant='h4'
                                 sx={{ margin: '15px 0' }}
                             >
-                                Jaguar XE 2.0 D R-Sport Automático 2019
+                                {product.title}
                             </Typography>
                             <Typography
                                 component='h4'
                                 variant='h4'
                                 sx={{ fontWeight: 'bold', marginBottom: '15px' }}
                             >
-                                R$ 250.000,00
+                                {formatCurrency(product.price)}
                             </Typography>
-                            <Chip label='Categoria' />
+                            <Chip label={product.category} />
                         </Box>
 
                         <Box sx={{
@@ -96,7 +97,7 @@ const Product = () => {
                                 component='p'
                                 variant='body2'
                             >
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae nisi et sem semper elementum vel vel magna. Nulla tempor leo scelerisque egestas vestibulum. Nullam sed mi varius, pharetra mauris a, cursus urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur dapibus, lacus vel placerat viverra, lorem dui egestas sapien, et tempus ex arcu quis nulla. Nullam sapien sem, volutpat nec dui ut, blandit porttitor nisl. Nulla facilisi. Sed porta orci at pulvinar pretium.
+                                {product.description}
                             </Typography>
                         </Box>
                     </Grid>                    
@@ -109,14 +110,15 @@ const Product = () => {
                             }}
                         >
                             <CardHeader 
-                                avatar={<Avatar>D</Avatar>}
-                                title='Diego Anderson'
-                                subheader='dieanderson@gmail.com'
+                                avatar={
+                                    <Avatar src={product.user.image}>
+                                        { product.user.image || product.user.name[0] }
+                                    </Avatar>
+                                }
+                                title={product.user.name}
+                                subheader={product.user.email}
                             />
-                            <CardMedia sx={{ paddingTop: '56%' }}
-                                image={'https://source.unsplash.com/random?d=3'}
-                                title='Diego Anderson'
-                            />
+                            
                         </Card>
                         <Box sx={{
                                 backgroundColor: theme.palette.background.white,
@@ -137,6 +139,20 @@ const Product = () => {
             </Container>
         </TemplateDefault>
     )
+}
+
+export async function getServerSideProps({ query }) {
+    const { id } = query
+
+    await dbConnect()
+
+    const product = await ProductsModel.findOne({ _id: id })
+
+    return {
+        props: {
+            product: JSON.parse(JSON.stringify(product))
+        }
+    }
 }
 
 export default Product
