@@ -3,51 +3,31 @@ import Link from 'next/link'
 import { 
     Box,
     Container, 
-    Grid, 
-    IconButton, 
-    InputBase, 
-    Paper,
+    Grid,
     Typography,
 } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search'
 
 import TemplateDefault from '../../src/templates/Defaut'
 import Card from '../../src/components/Card'
 import theme from '../../src/theme'
 import ProductsModel from '../../src/models/products'
 import { formatCurrency } from '../../src/utils/currency'
+import InputSearch from '../../src/components/InputSearch'
 
 const List = ({ products, searchTerm }) => {
+    
     return(
         <TemplateDefault>
             <Container maxWidth='lg'>
 
-            <Paper 
-                component='form' 
-                sx={{ 
-                    p: '2px 4px', 
-                    display: 'flex', 
-                    justifyContent: 'center', 
-                    alignItems: 'center',
-                    mb: 3,
-                }}
-            >
-                <InputBase
-                    sx={{ ml: 1, flex: 1 }} 
-                    placeholder='Ex: mesa de cozinha com 6 cadeiras'
-                    inputProps={{'aria-label': 'Ex: mesa de cozinha com 6 cadeiras'}}
-                    fullWidth
-                />
-                <IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
-                    <SearchIcon />
-                </IconButton>
-            </Paper>
+           <InputSearch />
 
             <Box sx={{
                     backgroundColor: theme.palette.background.white,
                     padding: theme.spacing(3),
                     marginBottom: theme.spacing(3),
                     borderRadius: 1,
+                    marginTop: 5,
                 }}
             >
                 <Typography component='h6' variant='h6' align='Left' color='textPrimary'>

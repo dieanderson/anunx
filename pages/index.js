@@ -1,34 +1,19 @@
 import Link from 'next/link'
 import slugify from 'slugify'
-import { useState } from 'react'
-import { useRouter } from 'next/router'
 import {
     Container, 
-    Grid, 
-    IconButton, 
-    InputBase, 
-    Paper, 
+    Grid,
     Typography,
 } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search'
 
 import TemplateDefault from '../src/templates/Defaut'
 import Card from '../src/components/Card'
 import dbConnect from '../src/utils/dbConnect'
 import ProductsModel from '../src/models/products'
 import { formatCurrency } from '../src/utils/currency'
+import InputSearch from '../src/components/InputSearch'
 
 const Home = ({ products }) => {
-    
-    const [search, setSearch] = useState()
-    const router = useRouter()
-    
-    const handleSubmitSearch = (e) => {
-        e.preventDefault()
-        router.push({
-            pathname: `/search/${search}`,
-        })
-    }
 
     return(
         <TemplateDefault>
@@ -36,26 +21,9 @@ const Home = ({ products }) => {
                 <Typography component='h1' variant='h3' align='center' color='textPrimary'>
                     O que deseja encontrar?
                 </Typography>
-                <Paper 
-                    component='form' 
-                    sx={{ 
-                        p: '2px 4px', 
-                        display: 'flex', 
-                        justifyContent: 'center', 
-                        alignItems: 'center',
-                        mt: 6,
-                    }}
-                >
-                    <InputBase
-                        onChange={(e) => setSearch(e.target.value)}
-                        sx={{ ml: 1, flex: 1 }} 
-                        placeholder='Ex: mesa de cozinha com 6 cadeiras'                        
-                        fullWidth
-                    />
-                    <IconButton onClick={handleSubmitSearch} type='submit' sx={{ p: '10px' }} aria-label='search'>
-                        <SearchIcon />
-                    </IconButton>
-                </Paper>
+                
+                <InputSearch />
+
             </Container>
 
             <Container maxWidth='lg' sx={{ paddingTop: 8 }}>
