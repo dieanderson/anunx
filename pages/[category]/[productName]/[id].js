@@ -109,7 +109,13 @@ const Product = ({ product }) => {
                                 marginBottom: theme.spacing(3),
                             }}
                         >
-                            <CardHeader 
+                            <Typography
+                                component='h6'
+                                variant='h6'
+                            >
+                                Dados do vendedor:
+                            </Typography>
+                            <CardHeader                                
                                 avatar={
                                     <Avatar src={product.user.image}>
                                         { product.user.image || product.user.name[0] }

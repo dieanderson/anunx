@@ -84,7 +84,7 @@ export default function ButtonAppBar() {
               anchorEl={anchorUserMenu}
               onClose={() => setAnchorUserMenu(null)}
             >
-              <Link href={'/user/dashboard'} passHref>  
+              <Link href={'/user/panel'} passHref>  
                 <MenuItem>
                   <NewspaperIcon sx={{ mr: 1 }} />
                   Meus anúncios

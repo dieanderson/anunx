@@ -21,12 +21,13 @@ import dbConnect from '../../src/utils/dbConnect'
 import { formatCurrency } from '../../src/utils/currency'
 import useToasty from '../../src/contexts/Toasty'
 
-const Home = ({ products }) => {
+const Panel = ({ products }) => {
+
   const router = useRouter()
   const [productId, setProductId] = useState()
   const [removedProducts, setRemovedProducts] = useState([])
   const [openConfirmModal, setOpenConfirmModal] = useState(false)
-  const { setToasty } = useToasty()
+  const { setToasty } = useToasty()  
   
   const handleCloseModal = () => setOpenConfirmModal(false)
 
@@ -133,14 +134,13 @@ const Home = ({ products }) => {
   )
 }
 
-Home.requireAuth = true
+Panel.requireAuth = true
 
 export async function getServerSideProps({req}) {
   const session = await getSession({req})
   await dbConnect()
 
   const products = await ProductsModel.find({ 'user.id': session.accessToken })
- 
   return {
     props: {
       products: JSON.parse(JSON.stringify(products)),
@@ -148,4 +148,4 @@ export async function getServerSideProps({req}) {
   }
 }
 
-export default Home
+export default Panel

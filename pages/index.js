@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import slugify from 'slugify'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 import {
     Container, 
     Grid, 
@@ -17,6 +19,17 @@ import ProductsModel from '../src/models/products'
 import { formatCurrency } from '../src/utils/currency'
 
 const Home = ({ products }) => {
+    
+    const [search, setSearch] = useState()
+    const router = useRouter()
+    
+    const handleSubmitSearch = (e) => {
+        e.preventDefault()
+        router.push({
+            pathname: `/search/${search}`,
+        })
+    }
+
     return(
         <TemplateDefault>
             <Container maxWidth='md'>
@@ -34,12 +47,12 @@ const Home = ({ products }) => {
                     }}
                 >
                     <InputBase
+                        onChange={(e) => setSearch(e.target.value)}
                         sx={{ ml: 1, flex: 1 }} 
-                        placeholder='Ex: mesa de cozinha com 6 cadeiras'
-                        inputProps={{'aria-label': 'Ex: mesa de cozinha com 6 cadeiras'}}
+                        placeholder='Ex: mesa de cozinha com 6 cadeiras'                        
                         fullWidth
                     />
-                    <IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
+                    <IconButton onClick={handleSubmitSearch} type='submit' sx={{ p: '10px' }} aria-label='search'>
                         <SearchIcon />
                     </IconButton>
                 </Paper>
