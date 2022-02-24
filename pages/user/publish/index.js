@@ -43,7 +43,7 @@ const Publish = ({ userId, image }) => {
             text: 'Anúncio cadastrado com sucesso!',
             severity: 'success',
         })
-        router.push('dashboard')
+        router.push('panel')
     }
 
     const handleError = () => {

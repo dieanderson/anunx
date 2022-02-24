@@ -1,6 +1,7 @@
 import ProductsModel from '../models/products'
 import dbConnect from '../utils/dbconnect'
 import formidable from 'formidable-serverless'
+import { timeStamp } from 'console'
 const path = require('path')
 const fs = require('fs')
 

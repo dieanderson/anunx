@@ -1,3 +1,4 @@
+const { DateTime } = require("luxon")
 import { 
     Avatar,
     Box,
@@ -18,6 +19,9 @@ import ProductsModel from '../../../src/models/products'
 import { formatCurrency } from '../../../src/utils/currency'
 
 const Product = ({ product }) => {
+    const data = product.date
+    const dateFormated = DateTime.fromISO(data).setLocale('pt').toLocaleString(DateTime.DATETIME_MED)
+    
     return(
         <TemplateDefault>
             <Container maxWidth='lg'>
@@ -62,7 +66,7 @@ const Product = ({ product }) => {
                                 component='span'
                                 variant='caption'
                             >
-                                Publicado em 15 de Fevereiro de 2022
+                                Publicado em {dateFormated}
                             </Typography>
                             <Typography
                                 component='h4'
