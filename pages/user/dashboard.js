@@ -95,7 +95,7 @@ const Home = ({ products }) => {
           </Button>              
       </Container>
 
-      <Container maxWidth='md'>
+      <Container maxWidth='lg'>
         {
           products.length === 0 &&
             <Typography component='div' variant='body1' align='center' color='textPrimary' gutterBottom>

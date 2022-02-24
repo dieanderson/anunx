@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import slugify from 'slugify'
 import {
     Container, 
     Grid, 
@@ -10,8 +12,11 @@ import SearchIcon from '@mui/icons-material/Search'
 
 import TemplateDefault from '../src/templates/Defaut'
 import Card from '../src/components/Card'
+import dbConnect from '../src/utils/dbConnect'
+import ProductsModel from '../src/models/products'
+import { formatCurrency } from '../src/utils/currency'
 
-const Home = () => {
+const Home = ({ products }) => {
     return(
         <TemplateDefault>
             <Container maxWidth='md'>
@@ -47,92 +52,48 @@ const Home = () => {
                 </Typography>
                 <br />
                 <Grid container spacing={4}>
-                    
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card               
-                            image={'https://source.unsplash.com/random'}
-                            title='Produto X'
-                            subtitle='60,00'
-                            actions={false}  
-                        />
-                    </Grid>
 
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card               
-                            image={'https://source.unsplash.com/random'}
-                            title='Produto X'
-                            subtitle='60,00'
-                            actions={false}  
-                        />
-                    </Grid>
+                    {
+                        products.map(product => {
+                            const category = slugify(product.category).toLowerCase()
+                            const title = slugify(product.title).toLowerCase()
 
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card               
-                            image={'https://source.unsplash.com/random'}
-                            title='Produto X'
-                            subtitle='60,00'
-                            actions={false}  
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card               
-                            image={'https://source.unsplash.com/random'}
-                            title='Produto X'
-                            subtitle='60,00'
-                            actions={false}  
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card               
-                            image={'https://source.unsplash.com/random'}
-                            title='Produto X'
-                            subtitle='60,00'
-                            actions={false}  
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card               
-                            image={'https://source.unsplash.com/random'}
-                            title='Produto X'
-                            subtitle='60,00'
-                            actions={false}  
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card               
-                            image={'https://source.unsplash.com/random'}
-                            title='Produto X'
-                            subtitle='60,00'
-                            actions={false}  
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card               
-                            image={'https://source.unsplash.com/random'}
-                            title='Produto X'
-                            subtitle='60,00'
-                            actions={false}  
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card               
-                            image={'https://source.unsplash.com/random'}
-                            title='Produto X'
-                            subtitle='60,00'
-                            actions={false}  
-                        />
-                    </Grid>
+                            return(
+                                <Grid key={product._id} item xs={12} sm={6} md={3}>
+                                    <Link href={`/${category}/${title}/${product._id}`}>
+                                        <a>
+                                            <Card               
+                                                image={`/uploads/${product.files[0].name}`}
+                                                title={product.title}
+                                                subtitle={formatCurrency(product.price)}
+                                            />
+                                        </a>
+                                    </Link>
+                                </Grid>    
+                            )
+                        })
+                    }                   
                                       
                 </Grid>
             </Container>
         </TemplateDefault>
     )
+}
+
+export async function getServerSideProps() {
+    
+    await dbConnect()
+
+    const products = await ProductsModel.aggregate([{
+        $sample: { size: 6 }
+    }])
+
+    return {
+        props: {
+            products: JSON.parse(JSON.stringify(products))
+        }
+    }
+
 }
 
 export default Home
