@@ -1,3 +1,8 @@
+import axios from 'axios'
+import { Field, Formik } from 'formik'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { getSession } from 'next-auth/react'
 import { 
     Box, 
     Button, 
@@ -13,29 +18,27 @@ import {
     CircularProgress,
  } from '@mui/material'
 
-import { Formik } from 'formik'
-
 import { initialValues, validationSchema } from './formValues'
 import TemplateDefault from '../../../src/templates/Defaut'
 import theme from '../../../src/theme'
 import FileUpload from '../../../src/components/FileUpload'
-import axios from 'axios'
 import useToasty from '../../../src/contexts/Toasty'
-import { useRouter } from 'next/router'
-
-import { getSession } from 'next-auth/react'
-
 
 const Publish = ({ userId, image }) => {
 
     const { setToasty } = useToasty()
     const router = useRouter()
+    
+    const [ listUf, setListUf ] = useState([])
+    
+    const [ listCity, setListCity ] = useState([])
 
     const formValues = {
         ...initialValues,               
     }     
     formValues.userId = userId
     formValues.image = image
+    
 
     const handleSuccess = () => {
         setToasty({
@@ -56,7 +59,7 @@ const Publish = ({ userId, image }) => {
 
     const handleFormSubmit = (values) => {
         const formData = new FormData()
-
+        
         for (let field in values) {
             if(field === 'files'){
                 values.files.forEach(file => {
@@ -71,6 +74,37 @@ const Publish = ({ userId, image }) => {
             .then(handleSuccess)
             .catch(handleError)
     }
+
+    function loadUf() {
+        axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados')            
+            .then( response => {
+                const ufs= response.data.sort((a,b) => a.nome.localeCompare(b.nome))
+                setListUf([...ufs])
+            })            
+    }
+    function loadCity(id) {
+        axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${id}/municipios`)            
+            .then( response => {
+                const citys = response.data.sort((a,b) => a.nome.localeCompare(b.nome))
+                setListCity([...citys])
+            })            
+    }
+
+    //const handleChangeUf = (uf) => {        
+    //    loadCity(uf)
+   // }
+    
+    useEffect(()=>{
+        loadUf()
+    }, [])
+    
+    useEffect(()=>{
+           
+    }, [])
+    
+    
+    
+
     
     return(
         <TemplateDefault>
@@ -78,7 +112,9 @@ const Publish = ({ userId, image }) => {
             <Formik
                 initialValues={formValues}
                 validationSchema={validationSchema}
-                onSubmit={ handleFormSubmit }                
+                onSubmit={ handleFormSubmit }  
+                            
+                               
             >
                 {
                     ({
@@ -87,9 +123,11 @@ const Publish = ({ userId, image }) => {
                         errors,
                         handleChange,
                         handleSubmit,
+                        handleBlur,
                         setFieldValue,
                         isSubmitting,
-                    }) => {                        
+                    }) => {                 
+                        
 
                         return(
                             <form onSubmit={handleSubmit}>
@@ -133,7 +171,7 @@ const Publish = ({ userId, image }) => {
                                                     name='category'
                                                     value={values.category}                                                    
                                                     onChange={handleChange}
-                                                    label='Categoria *'
+                                                    label='Categoria *'                                                    
                                                 >                                                
                                                     <MenuItem value='Bebê e Criança'>Bebê e Criança</MenuItem>
                                                     <MenuItem value='Agricultura'>Agricultura</MenuItem>
@@ -263,6 +301,51 @@ const Publish = ({ userId, image }) => {
                                                     {errors.phone && touched.phone ? errors.phone : null}
                                                 </FormHelperText>
                                             </FormControl>
+                                            <br /> <br />
+                                            <FormControl error={errors.uf && touched.uf} fullWidth>
+                                                <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
+                                                    UF *
+                                                </InputLabel>                                                
+                                                <Select
+                                                    name='uf'
+                                                    value={values.uf}                                                    
+                                                    onChange={handleChange}
+                                                    label='UF *'
+                                                    onBlur={handleBlur}
+                                                >
+                                                    {                                                       
+                                                       listUf.map((a,b) => (
+                                                            //<MenuItem key={a.id} value={a.id}>{a.id}</MenuItem>   
+                                                            <MenuItem key={a.id} value={a.id}>{a.sigla} - {a.nome}</MenuItem>
+                                                       ))                                                  
+                                                    }                                                 
+                                                </Select>
+                                                <FormHelperText>
+                                                    {errors.uf && touched.uf ? errors.uf : null}
+                                                </FormHelperText>
+                                            </FormControl>
+                                            <br /> <br />
+                                            <FormControl error={errors.city && touched.city} fullWidth>
+                                                <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
+                                                    Cidade *
+                                                </InputLabel>                                                
+                                                <Select
+                                                    name='city'
+                                                    value={values.city}                                                    
+                                                    onChange={handleChange}
+                                                    label='Cidade *'  
+                                                    onBlur={handleBlur}                                                  
+                                                >
+                                                    {                                                       
+                                                       listCity.map((a,b) => (
+                                                            <MenuItem key={a.sigla} value={a.sigla}>{a.nome}</MenuItem>
+                                                       ))                                                  
+                                                    }                                                  
+                                                </Select>
+                                                <FormHelperText>
+                                                    {errors.city && touched.city ? errors.city : null}
+                                                </FormHelperText>
+                                            </FormControl>
                                         </Box>
                                     </Container>
 
@@ -297,9 +380,9 @@ const Publish = ({ userId, image }) => {
 Publish.requireAuth = true
 
 export async function getServerSideProps({ req }) {
-    const { accessToken, user } = await getSession({ req })
+    const { accessToken, user } = await getSession({ req })    
     
-    return {
+    return {        
         props:{
             userId: accessToken,
             image: user.image,

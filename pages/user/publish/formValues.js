@@ -8,6 +8,8 @@ const initialValues = {
     email: '',
     name: '',
     phone: '',
+    uf: '',
+    city: '',
     files: [],
 }
 
@@ -27,6 +29,8 @@ const validationSchema = yup.object().shape({
         .required('Campo obrigatório'),
     name: yup.string().required('Campo obrigatório'),
     phone: yup.number().required('Campo obrigatório'),
+    uf: yup.string().required('Campo obrigatório'),
+    city: yup.string().required('Campo obrigatório'),
     files: yup.array().
         min(1, 'Envie pelo menos uma foto')
         .max(10, 'No máximo 10 fotos por anúncio')
