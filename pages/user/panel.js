@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import axios from 'axios'
+import slugify from 'slugify'
 import {
   Dialog,
   DialogActions,
@@ -20,6 +21,7 @@ import { getSession } from 'next-auth/react'
 import dbConnect from '../../src/utils/dbConnect'
 import { formatCurrency } from '../../src/utils/currency'
 import useToasty from '../../src/contexts/Toasty'
+import Link from 'next/link'
 
 const Panel = ({ products }) => {
 
@@ -109,19 +111,29 @@ const Panel = ({ products }) => {
             products.map(product => {
               if (removedProducts.includes(product._id)) return null
               
+              const category = slugify(product.category).toLowerCase()
+              const title = slugify(product.title).toLowerCase()
+              
               return(                
                 <Grid key={product._id} item xs={12} sm={6} md={3}>
-                  <Card               
-                    image={`/uploads/${product.files[0].name}`}
-                    title={product.title}
-                    subtitle={ formatCurrency( product.price ) }
-                    actions={
-                      <>                       
-                        <Button size='small' color='primary'>Editar</Button>
-                        <Button onClick={() => handleClickRemove(product._id)} size='small' color='primary'>Remover</Button>
-                      </>
-                    }  
-                  />                  
+                  
+                      <Card               
+                        image={`/uploads/${product.files[0].name}`}
+                        title={product.title}
+                        subtitle={ formatCurrency( product.price ) }
+                        actions={
+                          <>
+                            <Link href={`/${category}/${title}/${product._id}`}>
+                              <a>
+                                <Button size='small' color='primary'>Visualizar</Button> 
+                              </a>
+                            </Link>
+                            <Button size='small' color='primary'>Editar</Button>
+                            <Button onClick={() => handleClickRemove(product._id)} size='small' color='primary'>Remover</Button>
+                          </>
+                        }  
+                      />
+                                                          
                 </Grid>
               )
             })

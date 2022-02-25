@@ -1,7 +1,6 @@
 import ProductsModel from '../models/products'
 import dbConnect from '../utils/dbconnect'
 import formidable from 'formidable-serverless'
-import { timeStamp } from 'console'
 const path = require('path')
 const fs = require('fs')
 
@@ -60,6 +59,8 @@ const post = async (req, res) => {
             phone,
             userId,
             image,
+            uf,
+            city,
         } = fields
 
         const product = new ProductsModel({
@@ -73,6 +74,8 @@ const post = async (req, res) => {
                 email,
                 phone,
                 image,
+                uf,
+                city,
             },
             files: filesToSave,    
         })

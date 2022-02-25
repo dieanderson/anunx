@@ -140,8 +140,16 @@ const Product = ({ product }) => {
                             <Typography
                                 component='h6'
                                 variant='h6'
+                                mb={2}
                             >
                                 Localização
+                            </Typography>
+
+                            <Typography
+                                component='body1'
+                                variant='body1'
+                            >
+                                {product.user.city} / {product.user.uf}
                             </Typography>
                         </Box>                        
                     </Grid>

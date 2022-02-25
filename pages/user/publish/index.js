@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Field, Formik } from 'formik'
+import { Formik } from 'formik'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { getSession } from 'next-auth/react'
@@ -98,9 +98,7 @@ const Publish = ({ userId, image }) => {
         loadUf()
     }, [])
     
-    useEffect(()=>{
-           
-    }, [])
+   // useEffect(()=>{ }, [])
     
     
     
@@ -381,7 +379,7 @@ Publish.requireAuth = true
 
 export async function getServerSideProps({ req }) {
     const { accessToken, user } = await getSession({ req })    
-    
+    console.log(accessToken)
     return {        
         props:{
             userId: accessToken,
