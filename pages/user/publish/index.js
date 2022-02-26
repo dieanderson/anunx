@@ -88,20 +88,11 @@ const Publish = ({ userId, image }) => {
                 const citys = response.data.sort((a,b) => a.nome.localeCompare(b.nome))
                 setListCity([...citys])
             })            
-    }
-
-    //const handleChangeUf = (uf) => {        
-    //    loadCity(uf)
-   // }
-    
+    } 
+  
     useEffect(()=>{
         loadUf()
-    }, [])
-    
-   // useEffect(()=>{ }, [])
-    
-    
-    
+    }, [])   
 
     
     return(
@@ -309,11 +300,10 @@ const Publish = ({ userId, image }) => {
                                                     value={values.uf}                                                    
                                                     onChange={handleChange}
                                                     label='UF *'
-                                                    onBlur={handleBlur}
+                                                    onBlur={(e) => { loadCity(e.target.value) } }
                                                 >
-                                                    {                                                       
-                                                       listUf.map((a,b) => (
-                                                            //<MenuItem key={a.id} value={a.id}>{a.id}</MenuItem>   
+                                                    {                                                      
+                                                       listUf.map((a,b) => (                                                             
                                                             <MenuItem key={a.id} value={a.id}>{a.sigla} - {a.nome}</MenuItem>
                                                        ))                                                  
                                                     }                                                 
@@ -327,16 +317,15 @@ const Publish = ({ userId, image }) => {
                                                 <InputLabel sx={{fontWeight: 400, color: theme.palette.primary.main}}>
                                                     Cidade *
                                                 </InputLabel>                                                
-                                                <Select
+                                                <Select                                                    
                                                     name='city'
-                                                    value={values.city}                                                    
+                                                    value={values.city}                                                     
                                                     onChange={handleChange}
-                                                    label='Cidade *'  
-                                                    onBlur={handleBlur}                                                  
+                                                    label='Cidade *'                                                                                                                                                      
                                                 >
                                                     {                                                       
                                                        listCity.map((a,b) => (
-                                                            <MenuItem key={a.sigla} value={a.sigla}>{a.nome}</MenuItem>
+                                                            <MenuItem key={a.nome} value={a.nome}>{a.nome}</MenuItem>
                                                        ))                                                  
                                                     }                                                  
                                                 </Select>

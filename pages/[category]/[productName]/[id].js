@@ -17,10 +17,18 @@ import theme from '../../../src/theme'
 import dbConnect from '../../../src/utils/dbConnect'
 import ProductsModel from '../../../src/models/products'
 import { formatCurrency } from '../../../src/utils/currency'
+import { getUfFromCodUf } from '../../../src/utils/getUfFromCodUf'
+import { useState } from 'react'
 
 const Product = ({ product }) => {
     const data = product.date
     const dateFormated = DateTime.fromISO(data).setLocale('pt').toLocaleString(DateTime.DATETIME_MED)
+    const [uf, setUf] = useState()
+    
+    getUfFromCodUf(product.user.uf)
+        .then( resp => {
+            setUf(resp)
+        })   
     
     return(
         <TemplateDefault>
@@ -146,10 +154,10 @@ const Product = ({ product }) => {
                             </Typography>
 
                             <Typography
-                                component='body1'
+                                component='p'
                                 variant='body1'
                             >
-                                {product.user.city} / {product.user.uf}
+                                {product.user.city} / {uf}
                             </Typography>
                         </Box>                        
                     </Grid>

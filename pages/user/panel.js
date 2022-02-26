@@ -125,7 +125,7 @@ const Panel = ({ products }) => {
                           <>
                             <Link href={`/${category}/${title}/${product._id}`}>
                               <a>
-                                <Button size='small' color='primary'>Visualizar</Button> 
+                                <Button size='small' color='primary'>Ver</Button> 
                               </a>
                             </Link>
                             <Button size='small' color='primary'>Editar</Button>
