@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import Carousel from 'react-material-ui-carousel'
 const { DateTime } = require("luxon")
 import { 
     Avatar,
@@ -10,7 +12,6 @@ import {
     Grid,
     Typography, 
 } from '@mui/material'
-import Carousel from 'react-material-ui-carousel'
 
 import TemplateDefault from '../../../src/templates/Defaut'
 import theme from '../../../src/theme'
@@ -18,12 +19,13 @@ import dbConnect from '../../../src/utils/dbConnect'
 import ProductsModel from '../../../src/models/products'
 import { formatCurrency } from '../../../src/utils/currency'
 import { getUfFromCodUf } from '../../../src/utils/getUfFromCodUf'
-import { useState } from 'react'
+import { formatPhoneNumber } from 'react-phone-number-input'
 
 const Product = ({ product }) => {
+    const [uf, setUf] = useState()
+    
     const data = product.date
     const dateFormated = DateTime.fromISO(data).setLocale('pt').toLocaleString(DateTime.DATETIME_MED)
-    const [uf, setUf] = useState()
     
     getUfFromCodUf(product.user.uf)
         .then( resp => {
@@ -127,16 +129,25 @@ const Product = ({ product }) => {
                             >
                                 Dados do vendedor:
                             </Typography>
-                            <CardHeader                                
+                            <CardHeader
+                                sx={{pb:1}}                                
                                 avatar={
                                     <Avatar src={product.user.image}>
-                                        { product.user.image || product.user.name[0] }
+                                        {                                             
+                                            product.user.image != 'null' 
+                                                ? product.user.image 
+                                                : product.user.name[0] 
+                                        }
                                     </Avatar>
                                 }
+                                
                                 title={product.user.name}
-                                subheader={product.user.email}
+                                subheader={product.user.email}                         
                             />
-                            
+                            <Typography component='p' variant="body2" color="text.secondary" sx={{ml:9}}>
+                                    { formatPhoneNumber(`+55${product.user.phone}`)}
+                                       
+                            </Typography>
                         </Card>
                         <Box sx={{
                                 backgroundColor: theme.palette.background.white,

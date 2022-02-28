@@ -39,7 +39,6 @@ const Publish = ({ userId, image }) => {
     formValues.userId = userId
     formValues.image = image
     
-
     const handleSuccess = () => {
         setToasty({
             open: true,
@@ -285,7 +284,8 @@ const Publish = ({ userId, image }) => {
                                                     name='phone'
                                                     value={values.phone}
                                                     onChange={handleChange}
-                                                />
+                                                    onKeyPress
+                                                />                                                
                                                 <FormHelperText>
                                                     {errors.phone && touched.phone ? errors.phone : null}
                                                 </FormHelperText>
@@ -368,11 +368,23 @@ Publish.requireAuth = true
 
 export async function getServerSideProps({ req }) {
     const { accessToken, user } = await getSession({ req })    
-    console.log(accessToken)
+    
+    let token = ''
+    accessToken
+        ? token = accessToken
+        : token = user.email
+
+    
+    let img = '' 
+    user.image
+        ? img = user.image
+        : img = null
+
+    
     return {        
         props:{
-            userId: accessToken,
-            image: user.image,
+            userId: token,
+            image: img,
         }
     }
 }

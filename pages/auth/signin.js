@@ -27,7 +27,7 @@ const Signin = ({APP_URL}) => {
 
     const handleGoogleLogin = () => {
         signIn('google', {
-            callbackUrl: `${APP_URL}/user/panel`
+            callbackUrl: `/user/panel`
         })
     }    
     
@@ -36,7 +36,7 @@ const Signin = ({APP_URL}) => {
         signIn('credentials', {            
                 email: values.email,
                 password: values.password,
-                callbackUrl: `${APP_URL}/user/panel`,
+                callbackUrl: `/user/panel`,
             }
         )
     

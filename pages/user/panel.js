@@ -152,7 +152,12 @@ export async function getServerSideProps({req}) {
   const session = await getSession({req})
   await dbConnect()
 
-  const products = await ProductsModel.find({ 'user.id': session.accessToken })
+  let token = ''
+  session.accessToken
+    ? token = session.accessToken
+    : token = session.user.email
+
+  const products = await ProductsModel.find({ 'user.id': token })
   return {
     props: {
       products: JSON.parse(JSON.stringify(products)),

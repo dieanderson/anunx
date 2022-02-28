@@ -16,7 +16,7 @@ const initialValues = {
 const validationSchema = yup.object().shape({
     title: yup.string()
         .min(6, 'Escreva um título maior')
-        .max(100, 'Título muito grande')
+        .max(40, 'Título muito grande')
         .required('Campo obrigatório'),
     category: yup.string().required('Campo obrigatório'),
     description: yup.string()
