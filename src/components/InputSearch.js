@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { 
+import {
     IconButton, 
     InputBase, 
     Paper, 
@@ -33,13 +33,14 @@ const InputSearch = () => {
             <InputBase
                 onChange={(e) => setSearch(e.target.value)}
                 sx={{ ml: 1, flex: 1 }} 
-                placeholder='Ex: mesa de cozinha com 6 cadeiras'                        
+                placeholder='Estou procurando por....'                        
                 fullWidth
             />
             <IconButton onClick={handleSubmitSearch} type='submit' sx={{ p: '10px' }} aria-label='search'>
                 <SearchIcon />
             </IconButton>
         </Paper>
+        
 
     )
 }

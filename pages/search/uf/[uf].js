@@ -8,12 +8,12 @@ import {
     Typography,
 } from '@mui/material'
 
-import TemplateDefault from '../../src/templates/Defaut'
-import Card from '../../src/components/Card'
-import theme from '../../src/theme'
-import ProductsModel from '../../src/models/products'
-import { formatCurrency } from '../../src/utils/currency'
-import InputSearch from '../../src/components/InputSearch'
+import TemplateDefault from '../../../src/templates/Defaut'
+import Card from '../../../src/components/Card'
+import theme from '../../../src/theme'
+import ProductsModel from '../../../src/models/products'
+import { formatCurrency } from '../../../src/utils/currency'
+import InputSearch from '../../../src/components/InputSearch'
 
 const List = ({ products, searchTerm }) => {
     
@@ -73,29 +73,14 @@ const List = ({ products, searchTerm }) => {
 }
 
 export async function getServerSideProps({ query }) {
-    const { q } = query
+    const { uf, sigla } = query
     
-    const products = await ProductsModel.find({
-        $or: [
-            { 
-                title: {
-                    $regex: q,
-                    $options: 'i',
-                } 
-            },
-            { 
-                description: {
-                    $regex: q,
-                    $options: 'i',
-                } 
-            },
-        ]
-    })   
+    const products = await ProductsModel.find({ 'user.uf': uf })   
 
     return{
         props: {
             products: JSON.parse(JSON.stringify(products)),
-            searchTerm: q,
+            searchTerm: sigla,
         }
     }
 }

@@ -80,7 +80,8 @@ const Publish = ({ userId, image }) => {
                 const ufs= response.data.sort((a,b) => a.nome.localeCompare(b.nome))
                 setListUf([...ufs])
             })            
-    }
+    }  
+
     function loadCity(id) {
         axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${id}/municipios`)            
             .then( response => {
@@ -90,7 +91,7 @@ const Publish = ({ userId, image }) => {
     } 
   
     useEffect(()=>{
-        loadUf()
+      loadUf() 
     }, [])   
 
     

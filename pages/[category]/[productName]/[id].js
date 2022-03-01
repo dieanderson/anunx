@@ -18,7 +18,7 @@ import theme from '../../../src/theme'
 import dbConnect from '../../../src/utils/dbConnect'
 import ProductsModel from '../../../src/models/products'
 import { formatCurrency } from '../../../src/utils/currency'
-import { getUfFromCodUf } from '../../../src/utils/getUfFromCodUf'
+import { getUfFromCodUf } from '../../../src/utils/ufAndCity'
 import { formatPhoneNumber } from 'react-phone-number-input'
 
 const Product = ({ product }) => {
