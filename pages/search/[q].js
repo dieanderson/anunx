@@ -14,6 +14,7 @@ import theme from '../../src/theme'
 import ProductsModel from '../../src/models/products'
 import { formatCurrency } from '../../src/utils/currency'
 import InputSearch from '../../src/components/InputSearch'
+import UfFilterOptions from '../../src/components/UfFilterOptions'
 
 const List = ({ products, searchTerm }) => {
     
@@ -21,7 +22,9 @@ const List = ({ products, searchTerm }) => {
         <TemplateDefault>
             <Container maxWidth='lg'>
 
-           <InputSearch />
+            <InputSearch />
+            <br />
+            <UfFilterOptions />
 
             <Box sx={{
                     backgroundColor: theme.palette.background.white,
