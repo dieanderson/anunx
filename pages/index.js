@@ -65,8 +65,8 @@ const Home = ({ products }) => {
                                 <Grid key={a.id} item display='inline' alignItems='center' justifyContent='center'>
                                    <Chip label={a.sigla} key={a.id} onClick={()=>{                                                
                                                 router.push({
-                                                    pathname: `/search/uf/${a.id}`,
-                                                    query: { uf: a.id, sigla: a.sigla}
+                                                    pathname: `/search/${a.id}`,
+                                                    query: { sigla: a.sigla }
                                                 })
                                             }
                                         } 

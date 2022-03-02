@@ -73,31 +73,43 @@ const List = ({ products, searchTerm }) => {
 }
 
 export async function getServerSideProps({ query }) {
-    const { q } = query
-    
-    const products = await ProductsModel.find({
-        $or: [
-            { 
-                title: {
-                    $regex: q,
-                    $options: 'i',
-                } 
-            },
-            { 
-                description: {
-                    $regex: q,
-                    $options: 'i',
-                } 
-            },
-        ]
-    })   
+    const { q, sigla } = query
 
-    return{
-        props: {
-            products: JSON.parse(JSON.stringify(products)),
-            searchTerm: q,
+    if (sigla == undefined) {
+        const products = await ProductsModel.find({
+            $or: [
+                { 
+                    title: {
+                        $regex: q,
+                        $options: 'i',
+                    } 
+                },
+                { 
+                    description: {
+                        $regex: q,
+                        $options: 'i',
+                    } 
+                },
+            ]
+        }) 
+
+        return{
+            props: {
+                products: JSON.parse(JSON.stringify(products)),
+                searchTerm: q,
+            }
         }
-    }
+    } else{
+        const products = await ProductsModel.find({ 'user.uf': q }) 
+        return{
+            props: {
+                products: JSON.parse(JSON.stringify(products)),
+                searchTerm: sigla,
+            }
+        } 
+    } 
+
+   
 }
 
 export default List
