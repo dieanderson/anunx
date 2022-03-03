@@ -107,7 +107,7 @@ const Edit = ({ userId, image, product}) => {
   
     useEffect(()=>{
       loadUf()
-      loadCity(formValues.uf) 
+      loadCity(product.user.uf) 
     },)   
 
     
