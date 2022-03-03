@@ -38,6 +38,13 @@ const Panel = ({ products }) => {
     setOpenConfirmModal(true)    
   }
 
+  const handleClickEdit = (productId) => {
+    setProductId(productId)
+    router.push({
+      pathname: `/user/edit/${productId}`,
+    })
+  }
+
   const handleConfirmRemove = () => {
     axios.delete('/api/products/delete', {
       data: {
@@ -128,7 +135,7 @@ const Panel = ({ products }) => {
                                 <Button size='small' color='primary'>Ver</Button> 
                               </a>
                             </Link>
-                            <Button size='small' color='primary'>Editar</Button>
+                            <Button onClick={() => handleClickEdit(product._id)} size='small' color='primary'>Editar</Button>
                             <Button onClick={() => handleClickRemove(product._id)} size='small' color='primary'>Remover</Button>
                           </>
                         }  

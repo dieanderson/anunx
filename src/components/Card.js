@@ -11,7 +11,7 @@ const Card = ({ image, title, subtitle, actions }) => {
     return(        
         <CardMUI sx={{maxHeight: 350, minHeight:350}}>
             <CardMedia 
-                sx={{ objectFit: 'fill' }} //scale-down
+                sx={{ objectFit: 'contain' }} //scale-down / fill
                 component='img'
                 height='170px'                
                 image={image}

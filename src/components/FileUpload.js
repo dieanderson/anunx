@@ -13,7 +13,7 @@ import theme from '../../src/theme'
 
 
 const FileUpload = ({ files, errors, touched, setFieldValue }) => {
-    
+
     const { getRootProps, getInputProps } = useDropzone({
         accept: 'image/*',
         onDrop: (acceptedFile) => {
@@ -62,14 +62,17 @@ const FileUpload = ({ files, errors, touched, setFieldValue }) => {
                 </Box>
 
                 {
+                    
                     files.map( (file, index) => (
+                    
 
                         <Box 
                             key={file.name} 
                             className={styles.thumb} 
                             sx={{
                                 position: 'relative',
-                                backgroundImage: `url(${file.preview})`
+                                backgroundImage: `url(${file.preview ? file.preview : '/uploads/'+file.name})`,
+                                backgroundSize: 'contain',
                             }}
                         >
                             {

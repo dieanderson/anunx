@@ -56,9 +56,9 @@ const Product = ({ product }) => {
                                 {
                                     product.files.map(file => (
                                         <Card key={file.name} sx={{ height: '100%' }}>
-                                            <CardMedia sx={{ paddingTop: '56%' }} 
+                                            <CardMedia sx={{ paddingTop: '56.25%'}} 
                                                 image={`/uploads/${file.name}`}
-                                                title={product.title}    
+                                                title={product.title}  
                                             />
                                         </Card>    
                                     ))
