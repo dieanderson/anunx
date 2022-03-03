@@ -107,7 +107,14 @@ const remove = async (req, res) => {
     }
 }
 
+const update = async (req, res) => {
+
+    await dbConnect()
+    
+}
+
 export {
     post,
     remove,
+    update,
 }

@@ -84,7 +84,7 @@ const Edit = ({ userId, image, product}) => {
             }
         }
 
-        axios.post('/api/products/add', formData)
+        axios.put('/api/products/update', formData)
             .then(handleSuccess)
             .catch(handleError)
     }
@@ -108,7 +108,7 @@ const Edit = ({ userId, image, product}) => {
     useEffect(()=>{
       loadUf()
       loadCity(formValues.uf) 
-    }, [])   
+    },)   
 
     
     return(
