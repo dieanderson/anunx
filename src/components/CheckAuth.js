@@ -13,7 +13,7 @@ const CheckAuth = ({ Component, pageProps }) => {
         if(status === 'unauthenticated'){
             router.push('/auth/signin')
         }
-    }, [session, status])
+    }, [router, session, status])
 
     if(status === 'authenticated'){
         return <Component {...pageProps} />
