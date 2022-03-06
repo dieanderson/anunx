@@ -35,7 +35,7 @@ const List = ({ products, searchTerm }) => {
                 }}
             >
                 
-                <Typography component='h6' variant='h6' align='Left' color='textPrimary'>
+                <Typography component='h6' variant='h6' align='left' color='textPrimary'>
                     {
                         products.length >= 1
                         ? `Foram encontrados ${products.length} anúncios`

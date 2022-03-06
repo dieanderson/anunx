@@ -31,7 +31,7 @@ const Home = ({ products }) => {
                
                 <UfFilterOptions />
                 
-                <Typography component='h2' variant='h4' align='Left' color='textPrimary'>
+                <Typography component='h2' variant='h4' align='left' color='textPrimary'>
                     Anúncios recentes
                 </Typography>
                 <br />
