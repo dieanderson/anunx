@@ -18,7 +18,7 @@ import { useRouter } from 'next/router'
 
 import TemplateDefault from '../../src/templates/Defaut'
 import theme from '../../src/theme'
-import { initialValues, validationSchema } from './formValuesSignin'
+import { initialValues, validationSchema } from '../../lib/formValuesSignin'
 
 
 const Signin = ({props}) => {

@@ -18,7 +18,7 @@ import {
     CircularProgress,
  } from '@mui/material'
 
-import { initialValues, validationSchema } from './formValues'
+import { initialValues, validationSchema } from '../../../lib/formValuesPublish'
 import TemplateDefault from '../../../src/templates/Defaut'
 import theme from '../../../src/theme'
 import FileUpload from '../../../src/components/FileUpload'

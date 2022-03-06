@@ -17,7 +17,7 @@ import { useRouter } from 'next/router'
 
 import TemplateDefault from '../../src/templates/Defaut'
 import theme from '../../src/theme'
-import { initialValues, validationSchema } from './formValuesSignup'
+import { initialValues, validationSchema } from '../../lib/formValuesSignup'
 import useToasty from '../../src/contexts/Toasty'
 
 
