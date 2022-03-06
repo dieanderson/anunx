@@ -28,7 +28,6 @@
     "formidable": "^3.2.1",
     "formidable-serverless": "^1.1.1",
     "formik": "^2.2.9",
-    "fsevents": "v2.3",
     "glob-parent": "^6.0.2",
     "html-webpack-plugin": "^5.5.0",
     "immer": "^9.0.12",
@@ -61,6 +60,7 @@
     "swr": "^1.2.2",
     "urix": "^0.1.0",
     "uuid": "^8.3.2",
+    "webpack": "^5.0.0-rc.6",
     "yargs-parser": "^21.0.1",
     "yup": "^0.32.11"
   },
@@ -71,5 +71,5 @@
   },
   "optionalDependencies": {
     "fsevents": "*"
- }
+  }
 }
