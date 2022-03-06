@@ -1,5 +1,5 @@
 import ProductsModel from '../models/products'
-import dbConnect from '../utils/dbconnect'
+import dbConnect from '../utils/dbConnect'
 import formidable from 'formidable-serverless'
 const path = require('path')
 const fs = require('fs')
